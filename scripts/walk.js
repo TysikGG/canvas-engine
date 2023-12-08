@@ -1,3 +1,6 @@
+import { objects } from "../scene/scene.js";
+import { camera } from "../scene/loader.js";
+
 document.addEventListener("keydown" , function(event) {
     const step = 30
     let DirX = 0
