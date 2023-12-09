@@ -35,7 +35,7 @@ export class Sprite {
         img = document.getElementById(this.image);
         if (this.isStatic) { // пока что флип не поддерживается для нестатичных обьектов
             if (this.flipped) { // если флипнуто то переворачивать
-                if (this.dx >= 0) this.dx = -this.dx - this.dWidth
+                if (this.dx >= 0) this.dx = -this.dx - this.dWidth;
                 ctx.save();
                 ctx.scale(-1, 1);
             } else {
@@ -52,9 +52,9 @@ export class Sprite {
         for (let i = 0; i < arr.length; i++) {
             if (arr[i][0].started == true) {
                 img = arr[i][0].get_sprite()
-                
             }
         }
+
         ctx.drawImage(img, this.dx, this.dy, this.dWidth, this.dHeight) // this.sx, this.sy, this.sWidth, this.sHeight, 
 
         if (this.flipped) ctx.restore()
@@ -62,5 +62,29 @@ export class Sprite {
 
     flip(bool) {
         this.flipped = bool
+    }
+
+    collideWith(object) {
+        let x = this.temp_dx
+        let y = this.dy
+        let w = this.dWidth
+        let h = this.dHeight
+        let x1 = object.dx
+        let y1 = object.dy
+        let w1 = object.dWidth
+        let h1 = object.dHeight
+
+        if (this.isStatic && this.temp_dx != undefined) x = this.temp_dx
+        if (object.isStatic && object.temp_dx != undefined) x1 = object.temp_dx
+        // if (object.flipped == true) x1 = object.temp_dx
+        // if (this.flipped == true) x = this.temp_dx
+
+        if (
+            x < x1 + w1 &&
+            x + w > x1 &&
+            y < y1 + h1 &&
+            y + h > y
+        ) return true
+        else return false
     }
 }

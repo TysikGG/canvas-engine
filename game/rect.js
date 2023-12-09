@@ -25,4 +25,28 @@ export class Rect {
             ctx.strokeRect(this.dx, this.dy, this.width, this.height)
         }
     }
+
+    collideWith(object) {
+        let x = this.dx
+        let y = this.dy
+        let w = this.width
+        let h = this.height
+        let x1 = object.dx
+        let y1 = object.dy
+        let w1 = object.dWidth
+        let h1 = object.dHeight
+
+        if (this.isStatic && this.temp_dx != undefined) x = this.temp_dx
+        if (object.isStatic && object.temp_dx != undefined) x1 = object.temp_dx
+        // if (object.flipped == true) x1 = object.temp_dx
+        // if (this.flipped == true) x = this.temp_dx
+
+        if (
+            x < x1 + w1 &&
+            x + w > x1 &&
+            y < y1 + h1 &&
+            y + h > y
+        ) return true
+        else return false
+    }
 }

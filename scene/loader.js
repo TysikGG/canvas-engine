@@ -4,9 +4,10 @@ import { Rect } from '../game/rect.js'
 import { Sprite } from '../game/sprite.js'
 import { Animation } from '../game/animation.js';
 
-export let camera = new Camera(0, 0, 100)
+const canvas1 = document.getElementById('canvas1');
+
+export let camera = new Camera(canvas1.width/2, canvas1.height/2, 100)
 
 export function load_content() {
-    objects[3].animations.idle.play();
-    
+    objects[objects.length-1].animations.walk.play();
 }

@@ -1,26 +1,17 @@
-import { Camera } from './game/camera.js'
-import { Rect } from './game/rect.js'
-import { Sprite } from './game/sprite.js'
-import { Animation } from './game/animation.js';
 import { objects } from './scene/scene.js';
-import { load_content, camera } from './scene/loader.js';
-import "./scripts/walk.js";
-// import "./scripts/jump.js";
+import { load_content } from './scene/loader.js';
+import { standart_functions } from "./scripting.js";
 
 const canvas1 = document.getElementById('canvas1');
 const ctx = canvas1.getContext("2d");
-
 load_content()
 
 function render() {
     ctx.clearRect(0, 0, canvas1.width, canvas1.height); // очищение поля
     objects.sort(function(a, b) {return a.position - b.position}); // сортировка по позициям
-
-    for (const object of objects) object.draw() // отрисовка
-
+    // console.log(objects[0].collideWith(objects[1]))
+    for (const object of objects) object.draw(); // отрисовка
 }
-
-
 
 var intervalID = -1;
 var QueueNewFrame = function () {
@@ -41,6 +32,7 @@ var QueueNewFrame = function () {
 };
 
 var renderingLoop = function () {
+    for (let f of standart_functions) f() // выполнение скриптовых функций
     render();
     QueueNewFrame();
 };
